@@ -9,14 +9,14 @@ module Sunspot
       # Directory in which to store PID files
       #
       def pid_dir
-        configuration.pid_dir || File.join(::Sinatra.root, 'tmp', 'pids')
+        configuration.pid_dir || File.join(::Sinatra::Application.root, 'tmp', 'pids')
       end
 
       # 
       # Name of the PID file
       #
       def pid_file
-        "sunspot-solr-#{::Sinatra.env}.pid"
+        "sunspot-solr-#{::Sinatra::Application.environment.to_s}.pid"
       end
 
       # 
@@ -63,14 +63,14 @@ module Sunspot
       # Sinatra logger.
       #
       def log_level
-        LOG_LEVELS[::Sinatra.logger.level]
+        LOG_LEVELS[::Sinatra::Application.logger.level]
       end
 
       # 
       # Log file for Solr. File is in the Sinatra log/ directory.
       #
       def log_file
-        File.join(::Sinatra.root, 'log', "sunspot-solr-#{::Sinatra.env}.log")
+        File.join(::Sinatra::Application.root, 'log', "sunspot-solr-#{::Sinatra::Application.environment.to_s}.log")
       end
 
       # 

@@ -15,21 +15,6 @@ describe Sunspot::Sinatra::Configuration, "default values without a sunspot.yml"
   end
 
   describe "port" do
-    it "should default to port 8981 in test" do
-      ::Sinatra.stub!(:env => 'test')
-      @config = Sunspot::Sinatra::Configuration.new
-      @config.port.should == 8981
-    end
-    it "should default to port 8982 in development" do
-      ::Sinatra.stub!(:env => 'development')
-      @config = Sunspot::Sinatra::Configuration.new
-      @config.port.should == 8982
-    end
-    it "should default to 8983 in production" do
-      ::Sinatra.stub!(:env => 'production')
-      @config = Sunspot::Sinatra::Configuration.new
-      @config.port.should == 8983
-    end
     it "should generally default to 8983" do
       ::Sinatra.stub!(:env => 'staging')
       @config = Sunspot::Sinatra::Configuration.new
@@ -46,17 +31,17 @@ describe Sunspot::Sinatra::Configuration, "default values without a sunspot.yml"
   end
   
   it "should handle the 'solr_home' property when not set" do
-    Sinatra.should_receive(:root).at_least(1).and_return('/some/path')
+    Sinatra::Application.should_receive(:root).at_least(1).and_return('/some/path')
     @config.solr_home.should == '/some/path/solr'
   end
 
   it "should handle the 'data_path' property when not set" do
-    Sinatra.should_receive(:root).at_least(1).and_return('/some/path')
+    Sinatra::Application.should_receive(:root).at_least(1).and_return('/some/path')
     @config.data_path.should == '/some/path/solr/data/test'
   end
 
   it "should handle the 'pid_dir' property when not set" do
-    Sinatra.should_receive(:root).at_least(1).and_return('/some/path')
+    Sinatra::Application.should_receive(:root).at_least(1).and_return('/some/path')
     @config.pid_dir.should == '/some/path/solr/pids/test'
   end
   
@@ -79,7 +64,7 @@ end
 
 describe Sunspot::Sinatra::Configuration, "user provided sunspot.yml" do
   before(:each) do
-    ::Sinatra.stub!(:env => 'config_test')
+    ::Sinatra::Application.stub!(:environment => 'config_test')
     @config = Sunspot::Sinatra::Configuration.new
   end
 
@@ -130,7 +115,7 @@ end
 
 describe Sunspot::Sinatra::Configuration, "with disabled: true in sunspot.yml" do
   before(:each) do
-    ::Sinatra.stub!(:env => 'config_disabled_test')
+    ::Sinatra::Application.stub!(:environment => 'config_disabled_test')
     @config = Sunspot::Sinatra::Configuration.new
   end
 
@@ -145,7 +130,7 @@ describe Sunspot::Sinatra::Configuration, "with ENV['SOLR_URL'] overriding sunsp
   end
 
   before(:each) do
-    ::Sinatra.stub!(:env => 'config_test')
+    ::Sinatra::Application.stub!(:environment => 'config_test')
     @config = Sunspot::Sinatra::Configuration.new
   end
   
@@ -172,7 +157,7 @@ describe Sunspot::Sinatra::Configuration, "with ENV['WEBSOLR_URL'] overriding su
   end
 
   before(:each) do
-    ::Sinatra.stub!(:env => 'config_test')
+    ::Sinatra::Application.stub!(:environment => 'config_test')
     @config = Sunspot::Sinatra::Configuration.new
   end
   

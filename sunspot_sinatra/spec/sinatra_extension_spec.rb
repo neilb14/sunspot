@@ -1,10 +1,11 @@
 require File.expand_path('spec_helper', File.dirname(__FILE__))
+require File.expand_path('test_app.rb', ENV['SINATRA_ROOT'])
 
-describe PostsController, :type => :controller do
-  begin
-    include ::RSpec::Sinatra::ControllerExampleGroup
-  rescue NameError
-    # Silent -- rspec-rails 1.x catches the :type => :controller
+describe "Sinatra Application Request Lifecycle" do
+  include Rack::Test::Methods
+
+  def app
+    Sinatra::Application
   end
 
   before(:each) do
@@ -13,10 +14,6 @@ describe PostsController, :type => :controller do
 
   after(:each) do
     Sunspot::Sinatra.configuration = nil
-  end
-
-  unless respond_to?(:describes)
-    controller_name :posts  # RSpec 1
   end
 
   it 'should automatically commit after each action if specified' do

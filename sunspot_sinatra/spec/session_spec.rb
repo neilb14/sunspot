@@ -31,7 +31,7 @@ describe 'Sunspot::Sinatra session' do
   context 'disabled' do
     before do
       Sunspot::Sinatra.reset
-      ::Sinatra.stub!(:env).and_return("config_disabled_test")
+      ::Sinatra::Application.stub!(:environment).and_return("config_disabled_test")
     end
 
     after do

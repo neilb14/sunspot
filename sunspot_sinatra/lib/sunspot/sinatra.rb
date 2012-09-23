@@ -1,7 +1,7 @@
 require 'sunspot'
 require File.join(File.dirname(__FILE__), 'sinatra', 'configuration')
 require File.join(File.dirname(__FILE__), 'sinatra', 'adapters')
-require File.join(File.dirname(__FILE__), 'sinatra', 'request_lifecycle')
+require File.join(File.dirname(__FILE__), 'sinatra', 'sunspot_extension')
 require File.join(File.dirname(__FILE__), 'sinatra', 'searchable')
 
 module Sunspot #:nodoc:

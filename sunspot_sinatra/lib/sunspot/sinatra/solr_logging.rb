@@ -1,3 +1,6 @@
+require 'facets'
+require 'facets/binding'
+
 module Sunspot
   module Sinatra
     module SolrLogging

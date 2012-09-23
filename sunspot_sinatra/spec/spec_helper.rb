@@ -4,17 +4,20 @@ if rsolr_version = ENV['RSOLR_GEM_VERSION']
   gem "rsolr", rsolr_version
 end
 
-require File.expand_path('config/environment', ENV['SINATRA_ROOT'])
+require File.expand_path('app.rb', ENV['SINATRA_ROOT'])
 
-begin
-  require 'rspec'
-  require 'rspec/sinatra'
-rescue LoadError => e
-  require 'spec'
-  require 'spec/sinatra'
-end
+require 'rspec'
 require 'rake'
-require File.join('sunspot', 'sinatra', 'solr_logging')
+require 'rsolr'
+require 'rack/test'
+require 'sunspot_sinatra'
+
+ActiveRecord::Base.establish_connection(
+{
+  :adapter => "sqlite3",
+  :host => "localhost",
+  :database => "test.db"
+})
 
 def load_schema
   stdout = $stdout

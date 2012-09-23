@@ -1,2 +1,2 @@
 require 'sunspot/sinatra'
-require 'sunapot/sinatra/init'
+require 'sunspot/sinatra/init'

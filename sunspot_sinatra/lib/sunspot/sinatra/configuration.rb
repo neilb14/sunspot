@@ -194,11 +194,11 @@ module Sunspot #:nodoc:
       end
 
       def data_path
-        @data_path ||= user_configuration_from_key('solr', 'data_path') || File.join(::Sinatra.root, 'solr', 'data', ::Sinatra.env)
+        @data_path ||= user_configuration_from_key('solr', 'data_path') || File.join(::Sinatra::Application.root, 'solr', 'data', ::Sinatra::Application.environment.to_s)
       end
       
       def pid_dir
-        @pid_dir ||= user_configuration_from_key('solr', 'pid_dir') || File.join(::Sinatra.root, 'solr', 'pids', ::Sinatra.env)
+        @pid_dir ||= user_configuration_from_key('solr', 'pid_dir') || File.join(::Sinatra::Application.root, 'solr', 'pids', ::Sinatra::Application.environment.to_s)
       end
 
       
@@ -216,7 +216,7 @@ module Sunspot #:nodoc:
           if user_configuration_from_key('solr', 'solr_home')
             user_configuration_from_key('solr', 'solr_home')
           else
-            File.join(::Sinatra.root, 'solr')
+            File.join(::Sinatra::Application.root, 'solr')
           end
       end
 
@@ -267,7 +267,7 @@ module Sunspot #:nodoc:
       # String:: default_log_file_location
       #
       def default_log_file_location
-        File.join(::Sinatra.root, 'log', "solr_" + ::Sinatra.env + ".log")
+        File.join(::Sinatra::Application.root, 'log', "solr_" + ::Sinatra::Application.environment.to_s + ".log")
       end
       
       # 
@@ -294,11 +294,11 @@ module Sunspot #:nodoc:
       def user_configuration
         @user_configuration ||=
           begin
-            path = File.join(::Sinatra.root, 'config', 'sunspot.yml')
+            path = File.join(::Sinatra::Application.root, 'config', 'sunspot.yml')
             if File.exist?(path)
               File.open(path) do |file|
                 processed = ERB.new(file.read).result
-                YAML.load(processed)[::Sinatra.env]
+                YAML.load(processed)[::Sinatra::Application.environment]
               end
             else
               {}
@@ -325,10 +325,7 @@ module Sunspot #:nodoc:
       end
       
       def default_port
-        { 'test'        => 8981,
-          'development' => 8982,
-          'production'  => 8983
-        }[::Sinatra.env]  || 8983
+        8983
       end
       
       def default_path

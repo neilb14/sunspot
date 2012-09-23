@@ -24,10 +24,11 @@ describe Sunspot::Sinatra::Server do
   end
 
   it "sets the correct log level" do
+    Sinatra::Application.should_receive(:logger).at_least(1).and_return(::Logger.new('log'))
     @server.log_level.should == "FINE"
   end
 
   it "sets the correct log file" do
-    @server.log_file.should == File.join(Sinatra.root, 'log', 'sunspot-solr-test.log')
+    @server.log_file.should == File.join(Sinatra::Application.root, 'log', 'sunspot-solr-test.log')
   end
 end
