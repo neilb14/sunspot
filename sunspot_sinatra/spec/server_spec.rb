@@ -1,3 +1,4 @@
+require 'logger'
 require File.expand_path('spec_helper', File.dirname(__FILE__))
 
 describe Sunspot::Sinatra::Server do
@@ -24,7 +25,6 @@ describe Sunspot::Sinatra::Server do
   end
 
   it "sets the correct log level" do
-    Sinatra::Application.should_receive(:logger).at_least(1).and_return(::Logger.new('log'))
     @server.log_level.should == "FINE"
   end
 

@@ -1,4 +1,4 @@
-require 'activerecord'
+require 'active_record'
 Sunspot.session = Sunspot::Sinatra.build_session
 Sunspot::Adapters::InstanceAdapter.register(Sunspot::Sinatra::Adapters::ActiveRecordInstanceAdapter, ActiveRecord::Base)
 Sunspot::Adapters::DataAccessor.register(Sunspot::Sinatra::Adapters::ActiveRecordDataAccessor, ActiveRecord::Base)

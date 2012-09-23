@@ -32,6 +32,8 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency 'sunspot', Sunspot::VERSION
+  s.add_dependency 'activerecord', '~>3.2'
+  s.add_dependency 'sinatra', '~>1.3'
   s.add_dependency 'nokogiri'
 
   s.add_development_dependency 'rspec', '~> 1.2'

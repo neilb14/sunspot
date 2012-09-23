@@ -1,9 +1,11 @@
 *.gem
+*.db
+*.log
 Gemfile.lock
 vendor/bundle
 sunspot/vendor/bundle
-sunspot_rails/spec/rails2/vendor
-sunspot_rails/spec/rails3/vendor
+sunspot_sinatra/.bundle
+sunspot_sinatra/tmp
 **/*/vendor/bundle
 sunspot-solr.pid
 .yardoc

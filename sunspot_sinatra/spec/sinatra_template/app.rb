@@ -10,13 +10,9 @@ require 'post_with_auto'
 require 'post_with_default_scope'
 require 'photo_post'
 
-enable :logging
+set :logging, false
 set :environment, :test
 set :database_url, "sqlite3://test.db"
-
-get '/' do
-	return '<html><head></head><body></body></html>'
-end
 
 post '/create' do
 	PostWithAuto.create(params[:post])

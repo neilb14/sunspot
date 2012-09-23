@@ -39,7 +39,6 @@ namespace :spec do
     ENV['BUNDLE_GEMFILE'] = gemfile_path
     ENV['SINATRA_ROOT']   = sinatra_app_path
     spec_command = "bundle exec rspec #{ENV['SPEC'] || 'spec/*_spec.rb'} --color"
-    puts "== Running #{spec_command}"
     system(spec_command)
   end
 end

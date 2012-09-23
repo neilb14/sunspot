@@ -29,10 +29,10 @@ module Sunspot
             response = execute_without_sinatra_logging(client, request_context)
           end
           log_name = 'Solr %s (%.1fms)' % [action, ms]
-          ::Sinatra.logger.debug(format_log_entry(log_name, body))
+          ::Sinatra::Application.logger.debug(format_log_entry(log_name, body))
         rescue Exception => e
           log_name = 'Solr %s (Error)' % [action]
-          ::Sinatra.logger.error(format_log_entry(log_name, body))
+          ::Sinatra::Application.logger.error(format_log_entry(log_name, body))
           raise e
         end
 
@@ -43,7 +43,7 @@ module Sunspot
 
       def format_log_entry(message, dump = nil)
         @colorize_logging ||= begin
-          ::Sinatra.application.config.colorize_logging 
+          ::Sinatra.Application.config.colorize_logging 
         rescue NoMethodError
           ActiveRecord::Base.colorize_logging # in place for backwards compatibility - may not need if sinatra config works
         end
